@@ -6,7 +6,8 @@ SOURCES += \
     $$PWD/chessexception.cpp \
     $$PWD/tour.cpp \
     $$PWD/echiquier.cpp \
-    $$PWD/cavalier.cpp
+    $$PWD/cavalier.cpp \
+    $$PWD/roi.cpp
 
 HEADERS += \
     $$PWD/piece.h \
@@ -14,4 +15,5 @@ HEADERS += \
     $$PWD/chessexception.h \
     $$PWD/tour.h \
     $$PWD/echiquier.h \
-    $$PWD/cavalier.h
+    $$PWD/cavalier.h \
+    $$PWD/roi.h

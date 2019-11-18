@@ -1,6 +1,7 @@
 #include <QtTest>
 #include "tour.h"
 #include "cavalier.h"
+#include "roi.h"
 #include "chessexception.h"
 #include "position.h"
 #include "echiquier.h"
@@ -20,6 +21,7 @@ private slots:
     void disp_pos();
     void move_tour();
     void move_cavalier();
+    void move_roi();
 };
 
 Testing::Testing()
@@ -139,6 +141,28 @@ void Testing::move_cavalier()
     delete(echiquier.getPosition("c3"));
 }
 
+#define CHECK_ROI_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"R");}
+
+#define CHECK_ROI_MOVE_EXC(c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition("f6")->piece->move(c,l), ChessException);
+
+void Testing::move_roi()
+{
+    echiquier.getPosition("f6")->piece = new Roi(WHITE, *echiquier.getPosition("f6"));
+    echiquier.getPosition("g4")->piece = new Tour(BLACK, *echiquier.getPosition("g4"));
+    echiquier.getPosition("f5")->piece = new Tour(WHITE, *echiquier.getPosition("f5"));
+
+    CHECK_ROI_MOVE_EXC(a,1);
+    CHECK_ROI_MOVE_EXC(h,10);
+    CHECK_ROI_MOVE_EXC(e,4);
+    CHECK_ROI_MOVE_EXC(f,5);
+
+    CHECK_ROI_MOVE_OK("f6",f,7);
+    CHECK_ROI_MOVE_OK("f7",g,6);
+    CHECK_ROI_MOVE_OK("g6",g,5);
+    CHECK_ROI_MOVE_OK("g5",g,4);
+
+}
 
 QTEST_APPLESS_MAIN(Testing)
 
