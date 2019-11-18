@@ -19,6 +19,7 @@ private slots:
     void out_of_bounds();
     void disp_pos();
     void move_tour();
+    void move_cavalier();
 };
 
 Testing::Testing()
@@ -60,13 +61,13 @@ void Testing::out_of_bounds()
 
 void Testing::disp_pos()
 {
-    QCOMPARE_POS_DISP(1, 1, "a1");
-    QCOMPARE_POS_DISP(3, 5, "c5");
-    QCOMPARE_POS_DISP(4, 1, "d1");
-    QCOMPARE_POS_DISP(8, 8, "h8");
-    QCOMPARE_POS_DISP(6, 7, "f7");
-    OUT_OF_RANGE_POS_DISP(10, 3, "a1");
-    OUT_OF_RANGE_POS_DISP(2, 13, "c8");
+    QCOMPARE_POS_DISP(1,1,"a1");
+    QCOMPARE_POS_DISP(3,5,"c5");
+    QCOMPARE_POS_DISP(4,1,"d1");
+    QCOMPARE_POS_DISP(8,8,"h8");
+    QCOMPARE_POS_DISP(6,7,"f7");
+    OUT_OF_RANGE_POS_DISP(10,3,"a1");
+    OUT_OF_RANGE_POS_DISP(2,13,"c8");
 }
 
 #define CHECK_TOUR_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -78,13 +79,13 @@ void Testing::move_tour()
     echiquier.getPosition("c3")->piece = new Tour(WHITE, *echiquier.getPosition("c3"));
     echiquier.getPosition("c2")->piece = new Cavalier(WHITE, *echiquier.getPosition("c2"));
     echiquier.getPosition("e3")->piece = new Cavalier(WHITE, *echiquier.getPosition("e3"));
+    echiquier.getPosition("c8")->piece = new Cavalier(BLACK, *echiquier.getPosition("c8"));
 
     CHECK_TOUR_MOVE_EXC(d,4);
     CHECK_TOUR_MOVE_EXC(a,1);
     CHECK_TOUR_MOVE_EXC(a,10);
     CHECK_TOUR_MOVE_EXC(c,2);
     CHECK_TOUR_MOVE_EXC(c,1);
-
     CHECK_TOUR_MOVE_EXC(e,3);
     CHECK_TOUR_MOVE_EXC(h,3);
 
@@ -101,6 +102,41 @@ void Testing::move_tour()
     delete(echiquier.getPosition("c3")->piece);
     delete(echiquier.getPosition("c2")->piece);
     delete(echiquier.getPosition("e3")->piece);
+    delete(echiquier.getPosition("c8")->piece);
+}
+
+#define CHECK_CAVALIER_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"C");}
+
+#define CHECK_CAVALIER_MOVE_EXC(c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition("f6")->piece->move(c,l), ChessException);
+
+
+void Testing::move_cavalier()
+{
+    echiquier.getPosition("f6")->piece = new Cavalier(BLACK, *echiquier.getPosition("f6"));
+    echiquier.getPosition("d8")->piece = new Tour(BLACK, *echiquier.getPosition("d8"));
+    echiquier.getPosition("c3")->piece = new Tour(WHITE, *echiquier.getPosition("c3"));
+
+    CHECK_CAVALIER_MOVE_EXC(f,5);
+    CHECK_CAVALIER_MOVE_EXC(f,9);
+    CHECK_CAVALIER_MOVE_EXC(g,6);
+    CHECK_CAVALIER_MOVE_EXC(a,2);
+    CHECK_CAVALIER_MOVE_EXC(b,1);
+    CHECK_CAVALIER_MOVE_EXC(g,6);
+    CHECK_CAVALIER_MOVE_EXC(d,8);
+
+    CHECK_CAVALIER_MOVE_OK("f6",d,5);
+    CHECK_CAVALIER_MOVE_OK("d5",b,4);
+    CHECK_CAVALIER_MOVE_OK("b4",a,2);
+    CHECK_CAVALIER_MOVE_OK("a2",c,3);
+
+    QCOMPARE(echiquier.getPosition("f6")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("d5")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("b4")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("a2")->piece, nullptr);
+
+    delete(echiquier.getPosition("d8"));
+    delete(echiquier.getPosition("c3"));
 }
 
 
