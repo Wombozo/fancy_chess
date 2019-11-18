@@ -16,7 +16,6 @@ int Piece::move(int c, int l)
     try {
         Position pos(c, l);
         pos.check_exists();
-        //position = pos;
     } catch(const ChessException &) {}
     return 0;
 }

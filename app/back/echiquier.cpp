@@ -92,6 +92,6 @@ Echiquier::Echiquier()
 Position *Echiquier::getPosition(std::string str)
 {
     int c = str.at(0) - 96;
-    int l = str.at(1) - 1;
-    return positions.at(static_cast<unsigned long>(c)).at(static_cast<unsigned long>(l));
+    int l = static_cast<int>(str.at(1)) - 48;
+    return positions.at(static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1);
 }

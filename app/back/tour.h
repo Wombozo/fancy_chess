@@ -7,9 +7,9 @@
 class Tour : public Piece
 {
 public:
-    Position *position;
+    Position position;
 public:
-    Tour(Colour, Position*);
+    Tour(Colour, Position);
     virtual ~Tour();
     int move(int c, int l);
 };
