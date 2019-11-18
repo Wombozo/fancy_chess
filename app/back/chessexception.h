@@ -6,7 +6,7 @@
 typedef enum
 {
     OUT_OF_BOARD,
-    UNAUTHORIZED_PIECE_MOVE
+    UNAUTHORIZED_PIECE_MOVE,
 }chess_exception;
 
 class ChessException: public std::exception
