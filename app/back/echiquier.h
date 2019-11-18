@@ -4,10 +4,17 @@
 #include <vector>
 #include "position.h"
 
+typedef enum
+{
+    BLANCS,
+    NOIRS
+}Trait;
+
 class Echiquier
 {
 public:
     std::vector<Position> positions;
+    Trait trait = BLANCS;
 public:
     Echiquier();
 };

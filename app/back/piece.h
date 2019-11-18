@@ -3,12 +3,19 @@
 
 #include "position.h"
 
+typedef enum
+{
+    WHITE,
+    BLACK
+}Colour;
+
 class Piece
 {
 public:
     Position position;
+    Colour colour;
 public:
-    Piece();
+    Piece(Colour);
     virtual ~Piece();
     virtual int move(Position &);
 };

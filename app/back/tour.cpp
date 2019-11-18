@@ -1,7 +1,7 @@
 #include "tour.h"
 #include "echiquier.h"
 
-Tour::Tour()
+Tour::Tour(Colour col) : Piece(col)
 {
 }
 
@@ -11,18 +11,9 @@ Tour::~Tour()
 
 int Tour::move(Position &new_pos)
 {
-    if (position.c != new_pos.c && position.l != new_pos.l)
+    if (position.coord[0] != new_pos.coord[0] && position.coord[1] != new_pos.coord[1])
         throw ChessException(UNAUTHORIZED_PIECE_MOVE);
-    if (position.c == new_pos.c)
-    {
-        for (auto &pos : echiquier.positions)
-        {
-            if (pos.c == new_pos.c)
-            {
 
-            }
-        }
-    }
     Piece::move(new_pos);
     return 0;
 }

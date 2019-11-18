@@ -6,7 +6,7 @@
 class Tour : public Piece
 {
 public:
-    Tour();
+    Tour(Colour);
     virtual ~Tour();
     int move(Position &);
 };

@@ -2,7 +2,7 @@
 #include "chessexception.h"
 #include "echiquier.h"
 
-Piece::Piece()
+Piece::Piece(Colour col) : colour(col)
 {
 
 }
