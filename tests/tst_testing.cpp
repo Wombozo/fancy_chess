@@ -162,6 +162,13 @@ void Testing::move_roi()
     CHECK_ROI_MOVE_OK("g6",g,5);
     CHECK_ROI_MOVE_OK("g5",g,4);
 
+    QCOMPARE(echiquier.getPosition("f6")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("f7")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("g6")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("g5")->piece, nullptr);
+
+    delete(echiquier.getPosition("g4"));
+    delete(echiquier.getPosition("f5"));
 }
 
 QTEST_APPLESS_MAIN(Testing)
