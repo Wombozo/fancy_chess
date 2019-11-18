@@ -25,7 +25,7 @@ char Position::parse_column(void)
     {
     case a:
         return 'a';
-     case b:
+    case b:
         return 'b';
     case c:
         return 'c';
@@ -35,12 +35,17 @@ char Position::parse_column(void)
         return 'e';
     case f:
         return 'f';
+    case g:
+        return 'g';
+    case h:
+        return 'h';
     default:
         throw ChessException(OUT_OF_BOARD);
     }
 }
 
-void Position::display()
+std::string Position::display()
 {
-    std::cout<<parse_column()<<coord[1]<<std::endl;
+    std::string str = std::string() + parse_column() + std::to_string(coord[1]);
+    return str;
 }

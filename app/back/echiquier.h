@@ -2,6 +2,8 @@
 #define ECHIQUIER_H
 
 #include <vector>
+#include <string>
+
 #include "position.h"
 
 typedef enum
@@ -13,10 +15,11 @@ typedef enum
 class Echiquier
 {
 public:
-    std::vector<Position> positions;
+    std::vector<std::vector<Position*>> positions;
     Trait trait = BLANCS;
 public:
     Echiquier();
+    Position *getPosition(std::string);
 };
 
 extern Echiquier echiquier;

@@ -1,7 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include "position.h"
+#include <string>
 
 typedef enum
 {
@@ -12,12 +12,12 @@ typedef enum
 class Piece
 {
 public:
-    Position position;
     Colour colour;
+    std::string name;
 public:
     Piece(Colour);
     virtual ~Piece();
-    virtual int move(Position &);
+    virtual int move(int c, int l);
 };
 
 #endif // PIECE_H

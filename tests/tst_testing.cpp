@@ -1,6 +1,9 @@
 #include <QtTest>
 #include "tour.h"
 #include "chessexception.h"
+#include "position.h"
+#include "echiquier.h"
+
 // add necessary includes here
 
 class Testing : public QObject
@@ -13,7 +16,8 @@ public:
 
 private slots:
     void out_of_bounds();
-    void tour_move();
+    void disp_pos();
+    void move_tour();
 };
 
 Testing::Testing()
@@ -45,24 +49,38 @@ void Testing::out_of_bounds()
 
 }
 
-#define CHECK_TOUR_MOVE_OK(c,l) {Tour t(WHITE); t.position = pos_t; Position new_pos(c,l); QCOMPARE(t.move(new_pos),0); QVERIFY(!new_pos.isFree);}
-#define CHECK_TOUR_MOVE_EXC(c,l) {Tour t(WHITE); t.position = pos_t; Position new_pos(c,l); QVERIFY_EXCEPTION_THROWN(t.move(new_pos),ChessException);}
+#define QCOMPARE_POS_DISP(x,y,str) QCOMPARE(echiquier.positions.at(x).at(y)->display(),str);
+#define OUT_OF_RANGE_POS_DISP(x,y,str) QVERIFY_EXCEPTION_THROWN(echiquier.positions.at(x).at(y),std::out_of_range);
 
-void Testing::tour_move()
+void Testing::disp_pos()
 {
-    Position pos_b(e,4), pos_t(e,2);
-    pos_b.isFree = false;
-    CHECK_TOUR_MOVE_OK(e,1);
-    CHECK_TOUR_MOVE_OK(e,3);
-    CHECK_TOUR_MOVE_OK(a,2);
-    CHECK_TOUR_MOVE_OK(f,2);
-
-    CHECK_TOUR_MOVE_EXC(10,3);
-    CHECK_TOUR_MOVE_EXC(a,1);
-    CHECK_TOUR_MOVE_EXC(g,1);
-    CHECK_TOUR_MOVE_EXC(e,6);
+    QCOMPARE_POS_DISP(0, 0, "a1");
+    QCOMPARE_POS_DISP(2, 4, "c5");
+    QCOMPARE_POS_DISP(3, 0, "d1");
+    QCOMPARE_POS_DISP(7, 7, "h8");
+    QCOMPARE_POS_DISP(5, 6, "f7");
+    OUT_OF_RANGE_POS_DISP(9, 3, "a1");
+    OUT_OF_RANGE_POS_DISP(1, 13, "c8");
 }
 
+#define CHECK_TOUR_MOVE_OK(c,l) {Tour t(WHITE); t.position = pos_t; Position new_pos(c,l); QCOMPARE(t.move(new_pos),0); QVERIFY(!new_pos.isFree); QVERIFY()}
+#define CHECK_TOUR_MOVE_EXC(c,l) {Tour t(WHITE); t.position = pos_t; Position new_pos(c,l); QVERIFY_EXCEPTION_THROWN(t.move(new_pos),ChessException);}
+
+void Testing::move_tour()
+{
+    echiquier.getPosition("b3")->display();//piece = new Tour(WHITE, echiquier.getPosition("b3"));
+  //  echiquier.getPosition("b3")->piece->move(a,3);
+//    pos_b.isFree = false;
+//    CHECK_TOUR_MOVE_OK(e,1);
+//    CHECK_TOUR_MOVE_OK(e,3);
+//    CHECK_TOUR_MOVE_OK(a,2);
+//    CHECK_TOUR_MOVE_OK(f,2);
+
+//    CHECK_TOUR_MOVE_EXC(10,3);
+//    CHECK_TOUR_MOVE_EXC(a,1);
+//    CHECK_TOUR_MOVE_EXC(g,1);
+//    CHECK_TOUR_MOVE_EXC(e,6);
+}
 QTEST_APPLESS_MAIN(Testing)
 
 #include "tst_testing.moc"

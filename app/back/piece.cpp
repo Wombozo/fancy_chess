@@ -11,12 +11,12 @@ Piece::~Piece()
 {
 }
 
-int Piece::move(Position &pos)
+int Piece::move(int c, int l)
 {
     try {
+        Position pos(c, l);
         pos.check_exists();
-        position = pos;
-        pos.isFree = false;
+        //position = pos;
     } catch(const ChessException &) {}
     return 0;
 }

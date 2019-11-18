@@ -1,7 +1,10 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+#include <iostream>
+
 #include "chessexception.h"
+#include "piece.h"
 
 typedef enum
 {
@@ -19,13 +22,13 @@ class Position
 {
 public:
     int coord[2];
-    bool isFree;
+    Piece *piece = nullptr;
 public:
     Position();
     Position(int, int);
     int check_exists(void) const;
     char parse_column(void);
-    void display();
+    std::string display();
 };
 
 #endif // POSITION_H

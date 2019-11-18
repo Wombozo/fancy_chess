@@ -2,13 +2,16 @@
 #define TOUR_H
 
 #include "piece.h"
+#include "position.h"
 
 class Tour : public Piece
 {
 public:
-    Tour(Colour);
+    Position *position;
+public:
+    Tour(Colour, Position*);
     virtual ~Tour();
-    int move(Position &);
+    int move(int c, int l);
 };
 
 #endif // TOUR_H
