@@ -89,6 +89,15 @@ Echiquier::Echiquier()
 
 }
 
+Echiquier::~Echiquier()
+{
+    for (auto &l : positions)
+    {
+        for (auto &e : l)
+            delete &e;
+    }
+}
+
 Position *Echiquier::getPosition(std::string str)
 {
     int c = str.at(0) - 96;

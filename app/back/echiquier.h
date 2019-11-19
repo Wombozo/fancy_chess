@@ -19,6 +19,7 @@ public:
     Trait trait = BLANCS;
 public:
     Echiquier();
+    ~Echiquier();
     Position *getPosition(std::string);
 };
 
