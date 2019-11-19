@@ -44,9 +44,9 @@ static bool isValidMove(int c, int l, Position position, Colour col, Piece *p)
 
 int Pion::move(int c, int l)
 {
-    Piece *p = echiquier.positions.at(static_cast<unsigned long>(c-1)).at(static_cast<unsigned long>(l-1))->piece;
-
     Piece::move(c, l);
+
+    Piece *p = echiquier.positions.at(static_cast<unsigned long>(c-1)).at(static_cast<unsigned long>(l-1))->piece;
 
     if (p != nullptr && p->colour == colour)
         throw ChessException(UNAUTHORIZED_PIECE_MOVE);
