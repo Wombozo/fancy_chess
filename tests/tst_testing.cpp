@@ -29,6 +29,7 @@ private slots:
     void move_pion();
     void move_fou();
     void move_dame();
+    void pieces_freed();
 };
 
 Testing::Testing()
@@ -103,10 +104,10 @@ void Testing::move_tour()
     CHECK_TOUR_MOVE_OK("a3",a,8);
     CHECK_TOUR_MOVE_OK("a8",c,8);
 
-    delete(echiquier.getPosition("c3")->piece);
-    delete(echiquier.getPosition("c2")->piece);
-    delete(echiquier.getPosition("e3")->piece);
-    delete(echiquier.getPosition("c8")->piece);
+    delete(echiquier.getPosition("c3")->piece); echiquier.getPosition("c3")->piece = nullptr;
+    delete(echiquier.getPosition("c2")->piece); echiquier.getPosition("c2")->piece = nullptr;
+    delete(echiquier.getPosition("e3")->piece); echiquier.getPosition("e3")->piece = nullptr;
+    delete(echiquier.getPosition("c8")->piece); echiquier.getPosition("c8")->piece = nullptr;
 }
 
 #define CHECK_CAVALIER_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -134,8 +135,8 @@ void Testing::move_cavalier()
     CHECK_CAVALIER_MOVE_OK("b4",a,2);
     CHECK_CAVALIER_MOVE_OK("a2",c,3);
 
-    delete(echiquier.getPosition("d8")->piece);
-    delete(echiquier.getPosition("c3")->piece);
+    delete(echiquier.getPosition("d8")->piece); echiquier.getPosition("d8")->piece = nullptr;
+    delete(echiquier.getPosition("c3")->piece); echiquier.getPosition("c3")->piece = nullptr;
 }
 
 #define CHECK_ROI_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -159,8 +160,8 @@ void Testing::move_roi()
     CHECK_ROI_MOVE_OK("g6",g,5);
     CHECK_ROI_MOVE_OK("g5",g,4);
 
-    delete(echiquier.getPosition("g4")->piece);
-    delete(echiquier.getPosition("f5")->piece);
+    delete(echiquier.getPosition("g4")->piece); echiquier.getPosition("g4")->piece = nullptr;
+    delete(echiquier.getPosition("f5")->piece); echiquier.getPosition("f5")->piece = nullptr;
 }
 
 #define CHECK_PION_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -182,7 +183,7 @@ void Testing::move_pion()
 
     CHECK_PION_MOVE_OK("e7",e,6);
     QCOMPARE(echiquier.getPosition("e7")->piece, nullptr);
-    delete(echiquier.getPosition("e6")->piece);
+    delete(echiquier.getPosition("e6")->piece); echiquier.getPosition("e6")->piece = nullptr;
 
     echiquier.getPosition("e7")->piece = new Pion(BLACK, *echiquier.getPosition("e7"));
     CHECK_PION_MOVE_OK("e7",e,5);
@@ -191,8 +192,8 @@ void Testing::move_pion()
     CHECK_PION_MOVE_OK("e4",d,3);
     CHECK_PION_MOVE_OK("d3",d,2);
 
-    delete(echiquier.getPosition("e3")->piece);
-    delete(echiquier.getPosition("d2")->piece);
+    delete(echiquier.getPosition("e3")->piece); echiquier.getPosition("e3")->piece = nullptr;
+    delete(echiquier.getPosition("d2")->piece); echiquier.getPosition("d2")->piece = nullptr;
 }
 
 #define CHECK_FOU_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -219,8 +220,8 @@ void Testing::move_fou()
     CHECK_FOU_MOVE_OK("b4",c,5);
     CHECK_FOU_MOVE_OK("c5",b,6);
 
-    delete(echiquier.getPosition("c3")->piece);
-    delete(echiquier.getPosition("b6")->piece);
+    delete(echiquier.getPosition("c3")->piece); echiquier.getPosition("c3")->piece = nullptr;
+    delete(echiquier.getPosition("b6")->piece); echiquier.getPosition("b6")->piece = nullptr;
 }
 
 #define CHECK_DAME_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
@@ -234,8 +235,32 @@ void Testing::move_dame()
     echiquier.getPosition("b2")->piece = new Fou(BLACK, *echiquier.getPosition("b2"));
     echiquier.getPosition("h3")->piece = new Cavalier(BLACK, *echiquier.getPosition("h3"));
 
-    delete(echiquier.getPosition("b2")->piece);
-    delete(echiquier.getPosition("h3")->piece);
+    CHECK_DAME_MOVE_EXC("f6",h,1);
+    CHECK_DAME_MOVE_EXC("f6",e,8);
+    CHECK_DAME_MOVE_EXC("f6",a,4);
+    CHECK_DAME_MOVE_EXC("f6",d,2);
+    CHECK_DAME_MOVE_EXC("f6",a,1);
+    CHECK_DAME_MOVE_EXC("f6",h,1);
+
+    CHECK_DAME_MOVE_OK("f6",f,3);
+    CHECK_DAME_MOVE_OK("f3",g,3);
+    CHECK_DAME_MOVE_OK("g3",h,3);
+    CHECK_DAME_MOVE_OK("h3",c,3);
+    CHECK_DAME_MOVE_OK("c3",b,4);
+    CHECK_DAME_MOVE_OK("b4",b,2);
+
+    delete(echiquier.getPosition("b2")->piece); echiquier.getPosition("b2")->piece = nullptr;
+}
+
+void Testing::pieces_freed()
+{
+    for (auto &l : echiquier.positions)
+    {
+        for (auto &p : l)
+        {
+            QCOMPARE(p->piece, nullptr);
+        }
+    }
 }
 
 QTEST_APPLESS_MAIN(Testing)
