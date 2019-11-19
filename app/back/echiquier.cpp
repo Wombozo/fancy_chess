@@ -94,7 +94,7 @@ Echiquier::~Echiquier()
     for (auto &l : positions)
     {
         for (auto &e : l)
-            delete &e;
+            delete e;
     }
 }
 
