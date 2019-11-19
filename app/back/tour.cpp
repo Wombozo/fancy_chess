@@ -57,6 +57,8 @@ int Tour::move(int c, int l)
     //TODO: CHESS
 
     // Go gor it
+    if (p != nullptr && p->colour == !colour)
+        delete echiquier.positions.at(static_cast<unsigned long>(c)-1).at(static_cast<unsigned long>(l)-1)->piece;
     echiquier.positions.at(static_cast<unsigned long>(c)-1).at(static_cast<unsigned long>(l)-1)->piece = dynamic_cast<Piece*>(this);
     echiquier.positions.at(static_cast<unsigned long>(position.coord[0] - 1)).at(
                 static_cast<unsigned long>(position.coord[1]) - 1
