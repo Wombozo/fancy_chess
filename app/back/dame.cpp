@@ -1,20 +1,20 @@
-#include "tour.h"
+#include "dame.h"
 #include "echiquier.h"
 
 #include <algorithm>
 
-Tour::Tour(Colour col, Position pos) : Piece(col), position(pos)
+Dame::Dame(Colour col, Position pos) : Piece(col), position(pos)
 {
-    name = "R";
+    name = "Q";
 }
 
-Tour::~Tour()
+Dame::~Dame()
 {
 }
 
-int Tour::move(int c, int l)
+int Dame::move(int c, int l)
 {
-    // TOUR GLOBAL MOVE
+    // dame GLOBAL MOVE
     if (position.coord[0] != c && position.coord[1] != l)
         throw ChessException(UNAUTHORIZED_PIECE_MOVE);
 

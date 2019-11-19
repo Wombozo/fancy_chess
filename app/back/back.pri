@@ -9,7 +9,8 @@ SOURCES += \
     $$PWD/cavalier.cpp \
     $$PWD/roi.cpp \
     $$PWD/pion.cpp \
-    $$PWD/fou.cpp
+    $$PWD/fou.cpp \
+    $$PWD/dame.cpp
 
 HEADERS += \
     $$PWD/piece.h \
@@ -20,4 +21,5 @@ HEADERS += \
     $$PWD/cavalier.h \
     $$PWD/roi.h \
     $$PWD/pion.h \
-    $$PWD/fou.h
+    $$PWD/fou.h \
+    $$PWD/dame.h

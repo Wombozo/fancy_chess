@@ -78,7 +78,7 @@ void Testing::disp_pos()
 }
 
 #define CHECK_TOUR_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
-    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"T");}
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"R");}
 #define CHECK_TOUR_MOVE_EXC(c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition("c3")->piece->move(c,l), ChessException);
 
 void Testing::move_tour()
@@ -108,7 +108,7 @@ void Testing::move_tour()
 }
 
 #define CHECK_CAVALIER_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
-    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"C");}
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"N");}
 
 #define CHECK_CAVALIER_MOVE_EXC(c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition("f6")->piece->move(c,l), ChessException);
 
@@ -137,7 +137,7 @@ void Testing::move_cavalier()
 }
 
 #define CHECK_ROI_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
-    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"R");}
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"K");}
 
 #define CHECK_ROI_MOVE_EXC(c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition("f6")->piece->move(c,l), ChessException);
 
@@ -194,7 +194,7 @@ void Testing::move_pion()
 }
 
 #define CHECK_FOU_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
-    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"F");}
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"B");}
 
 #define CHECK_FOU_MOVE_EXC(str,c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition(str)->piece->move(c,l), ChessException);
 

@@ -3,7 +3,7 @@
 
 Cavalier::Cavalier(Colour col, Position pos) : Piece(col), position(pos)
 {
-    name = "C";
+    name = "N";
 }
 
 Cavalier::~Cavalier()

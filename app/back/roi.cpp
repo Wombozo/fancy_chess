@@ -4,7 +4,7 @@
 
 Roi::Roi(Colour col, Position pos) : Piece(col), position(pos)
 {
-    name = "R";
+    name = "K";
 }
 
 Roi::~Roi()

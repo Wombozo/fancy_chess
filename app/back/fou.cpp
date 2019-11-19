@@ -5,7 +5,7 @@
 
 Fou::Fou(Colour col, Position pos) : Piece(col), position(pos)
 {
-    name = "F";
+    name = "B";
 }
 
 Fou::~Fou()
