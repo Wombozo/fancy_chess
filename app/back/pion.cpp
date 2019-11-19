@@ -29,13 +29,12 @@ static bool isValidMove(int c, int l, Position position, Colour col, Piece *p)
     }
     else if (col == BLACK)
     {
-        if (l == position.coord[1] -1 && c == position.coord[0] && p == nullptr){std::cout<<__LINE__<<std::endl;
-            return true;}
-        if (position.coord[1] == 7 && l == 5 && p == nullptr && echiquier.positions.at(static_cast<unsigned long>(c)-1).at(8)->piece == nullptr){std::cout<<__LINE__<<std::endl;
-            return true;}
+        if (l == position.coord[1] -1 && c == position.coord[0] && p == nullptr)
+            return true;
+        if (position.coord[1] == 7 && l == 5 && p == nullptr && echiquier.positions.at(static_cast<unsigned long>(c)-1).at(7)->piece == nullptr)
+            return true;
         if (p != nullptr && p->colour == !col && l == position.coord[1] - 1 && std::abs(c - position.coord[0]) == 1)
         {
-            std::cout<<__LINE__<<std::endl;
             delete p;
             return true;
         }

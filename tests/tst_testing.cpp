@@ -191,21 +191,24 @@ void Testing::move_pion()
     CHECK_PION_MOVE_EXC("e7", e, 2);
     CHECK_PION_MOVE_EXC("e7", e, 1);
 
-
     CHECK_PION_MOVE_OK("e7",e,6);
     QCOMPARE(echiquier.getPosition("e7")->piece, nullptr);
     delete(echiquier.getPosition("e6"));
 
     echiquier.getPosition("e7")->piece = new Pion(BLACK, *echiquier.getPosition("e7"));
     CHECK_PION_MOVE_OK("e7",e,5);
-//    CHECK_PION_MOVE_OK("e5",e,4);
-//    CHECK_PION_MOVE_EXC("e4",e,3);
-//    CHECK_PION_MOVE_OK("e4",d,3);
+    CHECK_PION_MOVE_OK("e5",e,4);
+    CHECK_PION_MOVE_EXC("e4",e,3);
+    CHECK_PION_MOVE_OK("e4",d,3);
+    CHECK_PION_MOVE_OK("d3",d,2);
 
+    QCOMPARE(echiquier.getPosition("e7")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("e5")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("e4")->piece, nullptr);
+    QCOMPARE(echiquier.getPosition("d3")->piece, nullptr);
 
     delete(echiquier.getPosition("e3"));
-    delete(echiquier.getPosition("d3"));
-
+    delete(echiquier.getPosition("d2"));
 }
 
 QTEST_APPLESS_MAIN(Testing)
