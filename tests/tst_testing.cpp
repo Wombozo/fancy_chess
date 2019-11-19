@@ -5,6 +5,7 @@
 #include "fou.h"
 #include "roi.h"
 #include "pion.h"
+#include "dame.h"
 #include "chessexception.h"
 #include "position.h"
 #include "echiquier.h"
@@ -27,6 +28,7 @@ private slots:
     void move_roi();
     void move_pion();
     void move_fou();
+    void move_dame();
 };
 
 Testing::Testing()
@@ -219,6 +221,21 @@ void Testing::move_fou()
 
     delete(echiquier.getPosition("c3")->piece);
     delete(echiquier.getPosition("b6")->piece);
+}
+
+#define CHECK_DAME_MOVE_OK(str,c,l) {QCOMPARE(echiquier.getPosition(str)->piece->move(c,l),0); QCOMPARE(echiquier.positions.at( \
+    static_cast<unsigned long>(c) - 1).at(static_cast<unsigned long>(l) - 1)->piece->name,"Q");}
+
+#define CHECK_DAME_MOVE_EXC(str,c,l) QVERIFY_EXCEPTION_THROWN(echiquier.getPosition(str)->piece->move(c,l), ChessException);
+
+void Testing::move_dame()
+{
+    echiquier.getPosition("f6")->piece = new Dame(WHITE, *echiquier.getPosition("f6"));
+    echiquier.getPosition("b2")->piece = new Fou(BLACK, *echiquier.getPosition("b2"));
+    echiquier.getPosition("h3")->piece = new Cavalier(BLACK, *echiquier.getPosition("h3"));
+
+    delete(echiquier.getPosition("b2")->piece);
+    delete(echiquier.getPosition("h3")->piece);
 }
 
 QTEST_APPLESS_MAIN(Testing)
